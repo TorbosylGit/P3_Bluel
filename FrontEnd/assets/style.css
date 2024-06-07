@@ -1,0 +1,466 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/* suppression des marges, paddings, bordures */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* html5 display-role reset */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+/* corps de la page */
+body {
+	line-height: 1;
+	background-color: #FFFEF8;
+	max-width: 1140px;
+	margin: auto;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	padding-top: 0;
+}
+
+/* listes sans puces */
+ol, ul {
+	list-style: none;
+}
+
+/* suppression des guillemets sur blockquote et q */
+blockquote, q {
+	quotes: none;
+}
+
+/* suppression des guillemets sur blockquote avant/après */
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* tableaux sans espace entre les cellules */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* entête */
+header {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px 0;
+}
+
+/* bandeau de connexion */
+#bandeau-connexion {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	width: 100%;
+	background-color: black;
+	color: white;
+	font-size: 16px;
+	position: static;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+
+#bandeau-connexion a:link,
+#bandeau-connexion a:hover,
+#bandeau-connexion a:active,
+#bandeau-connexion a:visited {
+	color: white;
+	text-decoration: none;
+}
+
+/* conteneur titre */
+.title-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* lien édition projet */
+#editProjectLink {
+	margin-left: 20px;
+	margin-bottom: 2em;
+	font-size: 0.9em;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+}
+
+#editProjectLink i {
+	margin-right: 5px;
+}
+
+/* sections */
+section {
+	margin: 50px 0;
+}
+
+/* titres */
+h1 {
+	display: flex;
+	flex-direction: column;
+	font-family: 'Syne';
+	font-size: 22px;
+	font-weight: 800;
+	color: #B1663C;
+}
+
+h1 > span {
+	font-family: 'Work Sans';
+	font-size: 10px;
+	letter-spacing: 0.1em;
+}
+
+h2 {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154;
+}
+
+/* navigation */
+nav ul {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+}
+
+nav li {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+
+/* survol liens */
+li:hover {
+	color: #B1663C;
+}
+
+a:link {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #B1663C;
+}
+
+a:active {
+	color: black;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+/* introduction */
+#introduction {
+	display: flex;
+	align-items: center;
+}
+
+#introduction figure {
+	flex: 1;
+}
+
+#introduction img {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
+#introduction article {
+	flex: 1;
+}
+
+#introduction h2 {
+	margin-bottom: 1em;
+}
+
+#introduction p {
+	margin-bottom: 0.5em;
+}
+
+/* portfolio */
+#portfolio h2 {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.gallery {
+	width: 100%;
+	display: grid;
+	padding-top: 32px;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.gallery img {
+	width: 100%;
+}
+
+/* contact et login */
+#contact, #login {
+	width: 50%;
+	margin: auto;
+}
+
+#contact > *, #login > * {
+	text-align: center;
+}
+
+#contact h2, #login h2 {
+	margin-bottom: 20px;
+}
+
+#contact form, #login form {
+	text-align: left;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#contact input, #login input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#contact label, #login label {
+	margin: 2em 0 1em 0;
+}
+
+#contact textarea, #login textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+/* bouton de soumission */
+input[type="submit"] {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 2em auto;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px;
+}
+
+/* navigation pied de page */
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em;
+}
+
+/* boutons de catégorie */
+#category-buttons {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.button-style {
+	background-color: white;
+	padding: 8px 16px;
+	border-radius: 60px;
+	border: 1px solid #1D6154;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+/* survol boutons */
+.button-style:hover {
+	background-color: #0E2F28;
+	color: white;
+}
+
+.button-style.active {
+	background-color: #0E2F28;
+	color: white;
+}
+
+/* modale */
+.modale.modale-show {
+	display: flex;
+}
+
+.modale {
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(128, 128, 128, 0.70);
+}
+
+.modale-galerie button, .modale-addPhoto button {
+	padding: 8px 16px;
+	border-radius: 60px;
+	border: none;
+	cursor: pointer;
+	color: white;
+	font-size: 16px;
+	font-weight: 700;
+	margin: 30px;
+}
+
+.modale-galerie button {
+	background-color: #1D6154;
+	width: 62%;
+}
+
+.modale-addPhoto button {
+	background-color: #a7a7a7;
+}
+
+.modale-galerie, .modale-addPhoto {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	width: 630px;
+	border-radius: 10px;
+	align-items: center;
+	justify-content: space-around;
+	position: relative;
+	gap: 30px 10px; /* row gap column gap */
+}
+
+.modale-galerie .fa-xmark, .modale-addPhoto .fa-xmark {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+	font-size: 24px;
+	color: black;
+}
+
+.modale-galerie .fa-arrow-left, .modale-addPhoto .fa-arrow-left {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	cursor: pointer;
+	font-size: 24px;
+	color: black;
+}
+
+.modale-galerie form, .modale-addPhoto form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 420px;
+	height: 80%;
+	gap: 10px;
+}
+
+.modale-galerie .containerFile, .modale-addPhoto .containerFile {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 420px;
+	height: 172px;
+	border-radius: 3px;
+	background-color: #E8F1F6;
+}
+
+.modale-galerie .containerFile label, .modale-addPhoto .containerFile label {
+	background-color: #B9C5CC;
+	color: #306685;
+	font-weight: 500;
+	border-radius: 50px;
+	padding: 10px 30px;
+}
+
+.modale-galerie .containerFile input, .modale-addPhoto .containerFile input {
+	display: none;
+}
+
+.modale-galerie .containerFile .fa-image, .modale-addPhoto .containerFile .fa-image {
+	color: #B9C5CC;
+	font-size: 5rem;
+}
+
+.modale-galerie .containerFile img, .modale-addPhoto .containerFile img {
+	max-width: 100%;
+	height: 100%;
+}
+
+.modale-galerie .containerFile p, .modale-addPhoto .containerFile p {
+	font-size: 10px;
+}
+
+.modale-galerie input, .modale-addPhoto input,
+.modale-galerie select, .modale-addPhoto select {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.modale-galerie .modale-projets, .modale-addPhoto .modale-projets {
+	display: grid;
+	width: 70%;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 15px;
+	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+}
+
+.modale-galerie .work-item, .modale-addPhoto .work-item {
+	position: relative;
+	display: block;
+}
+
+.modale-galerie .work-item img, .modale-addPhoto .work-item img {
+	width: 100%;
+	display: block;
+	height: auto;
+}
+
+.modale-galerie .work-item .fa-trash-can, .modale-addPhoto .work-item .fa-trash-can {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+	color: white;
+	background-color: black;
+	padding: 3px;
+	border-radius: 2px;
+}
