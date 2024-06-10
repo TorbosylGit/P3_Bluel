@@ -283,3 +283,35 @@ async function loadWorksIntoModal() {
         console.error("Erreur lors du chargement des photos :", error);
     }
 }
+// supprimer travaux de la modale et galerie principale
+function deleteWork(workId) {
+    const token = localStorage.getItem('token'); // token pour auth
+
+    fetch(`http://localhost:5678/api/works/${workId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}` // token pour auth
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            const workItemModal = document.querySelector(`.modale-projets [data-id="${workId}"]`);
+            if (workItemModal) {
+                workItemModal.remove(); // retirer de la modale
+            }
+
+            const workItemGallery = document.querySelector(`.gallery [data-id="${workId}"]`);
+            if (workItemGallery) {
+                workItemGallery.remove(); // retirer de la galerie
+            }
+        } else {
+            response.json().then(data => {
+                alert(`Erreur : ${data.message || "Impossible de supprimer cette photo."}`);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Erreur de suppression : ', error);
+        alert('Problème de connexion ou erreur serveur lors de la tentative de suppression.');
+    });
+}
