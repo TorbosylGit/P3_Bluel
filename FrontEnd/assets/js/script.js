@@ -423,3 +423,25 @@ function uploadImage(formData) {
         console.error('Error:', error);
     });
 }
+// rafraîchir galerie
+function refreshGallery() {
+    const gallery = document.querySelector('.gallery');
+    gallery.innerHTML = ''; // vider galerie
+    fetch("http://localhost:5678/api/works")
+    .then(response => response.json())
+    .then(works => {
+        works.forEach(work => {
+            const figure = document.createElement("figure");
+            figure.setAttribute("data-id", work.id);
+            const img = document.createElement("img");
+            img.src = work.imageUrl;
+            img.alt = work.title;
+            const figcaption = document.createElement("figcaption");
+            figcaption.innerText = work.title;
+            figure.appendChild(img);
+            figure.appendChild(figcaption);
+            gallery.appendChild(figure);
+        });
+    })
+    .catch(error => console.log('Erreur lors du chargement des photos:', error));
+}
