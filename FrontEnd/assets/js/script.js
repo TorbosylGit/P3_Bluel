@@ -398,3 +398,28 @@ function validateForm(form) {
     }
     return true;
 }
+// envoyer image au back-end
+function uploadImage(formData) {
+    const token = localStorage.getItem('token'); // token pour auth
+
+    fetch('http://localhost:5678/api/works', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        refreshGallery(); // rafraîchir galerie
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
