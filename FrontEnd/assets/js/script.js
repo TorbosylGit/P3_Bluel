@@ -445,3 +445,19 @@ function refreshGallery() {
     })
     .catch(error => console.log('Erreur lors du chargement des photos:', error));
 }
+// validation live du formulaire addPhoto
+function setupRealTimeValidation() {
+    const form = document.querySelector('.modale-addPhoto form');
+    const inputs = form.querySelectorAll('input, select');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (validateForm(form)) {
+                submitButton.style.backgroundColor = '#1D6154';
+            } else {
+                submitButton.style.backgroundColor = '#A7A7A7';
+            }
+        });
+    });
+}
