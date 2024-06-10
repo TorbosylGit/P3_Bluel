@@ -145,3 +145,30 @@ function manageConnectionBanner(isConnected) {
         }
     }
 }
+// afficher/fermer la modale
+function toggleModal(event) {
+    event.preventDefault();
+    let modal = document.querySelector('.modale');
+    if (modal) {
+        modal.remove(); // retirer modale
+    }
+    const modalHTML = `
+        <div class="modale">
+            <div class="modale-galerie">
+                <span class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+                <h2>Galerie photo</h2>
+                <div class="modale-projets"></div>
+                <button class="add-photo-btn">Ajouter une photo</button>
+            </div>
+        </div>`;
+    const main = document.querySelector('main');
+    main.insertAdjacentHTML("afterbegin", modalHTML);
+    modal = document.querySelector('.modale');
+    modal.classList.add('modale-show'); // afficher modale
+    setupModalEvents(); // événements pour fermer modale
+    loadWorksIntoModal(); // charger images/travaux
+    const addButton = document.querySelector('.add-photo-btn');
+    if (addButton) {
+        addButton.addEventListener('click', addPhoto);
+    }
+}
