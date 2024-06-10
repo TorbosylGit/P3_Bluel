@@ -251,3 +251,35 @@ function setupLogoutHandler() {
         }
     });
 }
+// charger travaux dans la modale
+async function loadWorksIntoModal() {
+    try {
+        const response = await fetch("http://localhost:5678/api/works");
+        const works = await response.json();
+        const modalProjectsContainer = document.querySelector('.modale-projets');
+        modalProjectsContainer.innerHTML = ''; // vider container
+
+        // créer et ajouter éléments pour chaque photo
+        works.forEach(work => {
+            const workItem = document.createElement('div');
+            workItem.className = 'work-item';
+            workItem.setAttribute('data-id', work.id);
+
+            const img = document.createElement('img');
+            img.src = work.imageUrl;
+            img.alt = work.title;
+
+            const trashIcon = document.createElement('i');
+            trashIcon.className = 'fa-solid fa-trash-can';
+            trashIcon.addEventListener('click', () => {
+                deleteWork(work.id); // gérer suppression
+            });
+
+            workItem.appendChild(img);
+            workItem.appendChild(trashIcon);
+            modalProjectsContainer.appendChild(workItem);
+        });
+    } catch (error) {
+        console.error("Erreur lors du chargement des photos :", error);
+    }
+}
