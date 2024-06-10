@@ -218,3 +218,36 @@ function attachBackButtonEvent(modal) {
         backButton.addEventListener('click', restoreGalleryView);
     }
 }
+// restaurer la vue galerie
+function restoreGalleryView() {
+    let modal = document.querySelector('.modale');
+    modal.innerHTML = `
+        <div class="modale-galerie">
+            <span class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+            <h2>Galerie photo</h2>
+            <div class="modale-projets"></div>
+            <button class="add-photo-btn">Ajouter une photo</button>
+        </div>`;
+    setupModalEvents(); // réinitialiser écouteurs
+    loadWorksIntoModal(); // charger travaux
+}
+
+// ajuster texte du lien de connexion/déconnexion
+function adjustLoginLogoutText(isConnected) {
+    const loginLogoutLink = document.querySelector("#loginItem a");
+    loginLogoutLink.innerText = isConnected ? "Logout" : "Login";
+    loginLogoutLink.href = isConnected ? "#" : "login.html";
+}
+
+// configurer gestionnaire de déconnexion
+function setupLogoutHandler() {
+    const loginLogoutLink = document.querySelector("#loginItem a");
+    loginLogoutLink.addEventListener("click", function(event) {
+        if (this.innerText.toLowerCase() === "logout") {
+            event.preventDefault();
+            localStorage.removeItem('token'); // retirer token
+            alert("Vous êtes maintenant déconnecté.");
+            window.location.href = "index.html"; // rediriger
+        }
+    });
+}
