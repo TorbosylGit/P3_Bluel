@@ -364,3 +364,37 @@ function loadCategoriesIntoSelect() {
             console.error('Erreur du chargement des categories : ', error);
         });
 }
+
+// écouter soumission formulaire
+function setupFormSubmitListener() {
+    const form = document.querySelector('.modale-addPhoto form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // empêcher soumission standard
+        if (validateForm(this)) {
+            const formData = new FormData(this);
+            uploadImage(formData);
+        }
+    });
+}
+
+// validation formulaire
+function validateForm(form) {
+    const title = form.querySelector('#title').value.trim();
+    const fileInput = form.querySelector('#file');
+
+    const file = fileInput.files[0];
+    const category = form.querySelector('#category').value;
+
+    if (!title || !file || !category) {
+        return false;
+    }
+    if (!['image/jpeg', 'image/png'].includes(file.type)) {
+        alert("Le fichier doit être une image de type JPG ou PNG.");
+        return false;
+    }
+    if (file.size > 4194304) { // plus de 4 Mo
+        alert("La taille du fichier ne doit pas dépasser 4 Mo.");
+        return false;
+    }
+    return true;
+}
