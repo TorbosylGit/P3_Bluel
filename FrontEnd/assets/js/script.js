@@ -1,5 +1,5 @@
 /* script révisé pour la soutenance */
-/* 2024.2905.1415 - Version Révisée */
+/* 2024.1006.1531 */
 
 // récupérer/remplir liste déroulante des catégories
 async function getFilters() {
