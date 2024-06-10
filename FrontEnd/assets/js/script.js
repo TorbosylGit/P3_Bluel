@@ -172,3 +172,49 @@ function toggleModal(event) {
         addButton.addEventListener('click', addPhoto);
     }
 }
+// gérer les événements de la modale
+function setupModalEvents() {
+    const modal = document.querySelector('.modale');
+
+    // clic sur le fond de la modale pour fermer
+    modal.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            modal.remove(); // retirer modale
+        }
+    });
+
+    attachCloseButtonEvent(modal); // attacher écouter au bouton "X"
+    attachAddPhotoButtonEvent(modal); // attacher écouteur sur "Ajouter une photo"
+    attachBackButtonEvent(modal); // attacher écouteur sur "modal-back"
+}
+
+function attachCloseButtonEvent(modal) {
+    const closeBtn = modal.querySelector('.close-modal');
+    if (closeBtn) {
+        closeBtn.removeEventListener('click', closeModale);
+        closeBtn.addEventListener('click', closeModale);
+    }
+}
+
+function closeModale() {
+    const modal = document.querySelector('.modale');
+    modal.style.display = 'none';
+    modal.remove();
+}
+
+function attachAddPhotoButtonEvent(modal) {
+    const addPhotoBtn = modal.querySelector('.add-photo-btn');
+    if (addPhotoBtn) {
+        addPhotoBtn.removeEventListener('click', addPhoto);
+        addPhotoBtn.addEventListener('click', addPhoto);
+    }
+}
+
+function attachBackButtonEvent(modal) {
+    const backButton = modal.querySelector('.modal-back');
+    if (backButton) {
+        backButton.removeEventListener('click', restoreGalleryView);
+        backButton.addEventListener('click', restoreGalleryView);
+    }
+}
