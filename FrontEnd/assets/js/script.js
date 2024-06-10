@@ -461,7 +461,7 @@ function setupRealTimeValidation() {
         });
     });
 }
-// prévisualisation de l'image
+// aperçu de l'image
 function setupImagePreview() {
     const fileInput = document.querySelector('.modale-addPhoto input[type="file"]');
     const containerFile = document.querySelector('.modale-addPhoto .containerFile');
