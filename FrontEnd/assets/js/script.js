@@ -315,3 +315,52 @@ function deleteWork(workId) {
         alert('Problème de connexion ou erreur serveur lors de la tentative de suppression.');
     });
 }
+// ajouter nouveau projet via formulaire de la modale
+function addPhoto() {
+    let modal = document.querySelector('.modale');
+    modal.innerHTML = `
+        <div class="modale-addPhoto">
+            <span class="modal-back"><i class="fa-solid fa-arrow-left"></i></span>
+            <span class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+            <h2>Ajout photo</h2>
+            <form>
+                <div class="containerFile">
+                    <span><i class="fa-regular fa-image"></i></span>
+                    <label for="file">+ Ajouter photo</label>
+                    <input type="file" id="file" name="image">
+                    <p>jpg, png : 4 mo max</p>
+                </div>
+                <label for="title">Titre</label>
+                <input type="text" id="title" name="title" required>
+                <label for="category">Catégorie</label>
+                <select name="category" id="category" required></select>
+                <button type="submit" class="button">Valider</button>
+            </form>
+        </div>
+    `;
+    loadCategoriesIntoSelect(); // charger catégories dans select
+
+    setupModalEvents(); // écouteurs pour fermer et retour
+    setupFormSubmitListener(); // écouteur pour soumettre le formulaire
+    setupImagePreview(); // aperçu de l'image
+    setupRealTimeValidation(); // validation en temps réel
+}
+
+// charger catégories dans select
+function loadCategoriesIntoSelect() {
+    fetch("http://localhost:5678/api/categories")
+        .then(response => response.json())
+        .then(data => {
+            const select = document.getElementById('category');
+            select.innerHTML = ''; // effacer options existantes
+            data.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.textContent = category.name;
+                select.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Erreur du chargement des categories : ', error);
+        });
+}
