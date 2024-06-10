@@ -82,3 +82,66 @@ async function getWorks(categoryId = '0') {
 // appeler les fonctions initiales
 getWorks();
 getFilters();
+
+document.addEventListener("DOMContentLoaded", function() {
+    const isUserConnected = checkUserConnection();
+
+    // gérer l'affichage du bandeau de connexion
+    manageConnectionBanner(isUserConnected);
+    adjustLoginLogoutText(isUserConnected);
+    setupLogoutHandler();
+});
+
+// vérifier la connexion de l'utilisateur
+function checkUserConnection() {
+    return localStorage.getItem('token') !== null; // présence d'un token
+}
+
+// gérer le bandeau de connexion
+function manageConnectionBanner(isConnected) {
+    const header = document.querySelector("header");
+    let bandeau = document.getElementById("bandeau-connexion");
+
+    if (isConnected) {
+        if (!bandeau) {
+            bandeau = document.createElement('div');
+            bandeau.id = 'bandeau-connexion';
+            bandeau.innerHTML = '<ul><li><a id="editModeLink" href="#"><i class="fa-regular fa-pen-to-square"></i> Mode édition</a></li></ul>';
+            header.insertAdjacentElement("beforebegin", bandeau);
+            document.getElementById("editModeLink").addEventListener("click", toggleModal);
+        }
+
+        // ajouter dynamiquement le lien "modifier" à côté du titre "Mes Projets"
+        const projectTitle = document.querySelector("#portfolio h2");
+        if (projectTitle && !document.querySelector('.title-container')) {
+            const titleContainer = document.createElement('div');
+            titleContainer.className = 'title-container';
+
+            const editProjectLink = document.createElement('a');
+            editProjectLink.id = "editProjectLink";
+            editProjectLink.href = "#";
+            editProjectLink.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> modifier';
+            editProjectLink.addEventListener("click", toggleModal);
+
+            projectTitle.parentNode.insertBefore(titleContainer, projectTitle);
+            titleContainer.appendChild(projectTitle);
+            titleContainer.appendChild(editProjectLink);
+        }
+    } else {
+        if (bandeau) {
+            bandeau.parentNode.removeChild(bandeau);
+        }
+
+        const editProjectLink = document.getElementById("editProjectLink");
+        if (editProjectLink) {
+            editProjectLink.parentNode.removeChild(editProjectLink);
+        }
+
+        const titleContainer = document.querySelector('.title-container');
+        if (titleContainer) {
+            const projectTitle = titleContainer.querySelector('h2');
+            titleContainer.parentNode.insertBefore(projectTitle, titleContainer);
+            titleContainer.parentNode.removeChild(titleContainer);
+        }
+    }
+}
