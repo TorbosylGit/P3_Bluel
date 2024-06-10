@@ -1,7 +1,7 @@
 /* script révisé pour la soutenance */
-/* 2024.0706.1703 */
+/* 2024.2905.1415 - Version Révisée */
 
-// récupérer/remplir liste des catégories
+// récupérer/remplir liste déroulante des catégories
 async function getFilters() {
     try {
         const response = await fetch("http://localhost:5678/api/categories");
@@ -39,6 +39,7 @@ async function getFilters() {
         console.log("Erreur lors de la récupération des catégories :", error);
     }
 }
+
 // mettre à jour le bouton actif
 function updateActiveButton(activeButton) {
     document.querySelectorAll('.button-style').forEach(button => {
@@ -86,7 +87,7 @@ getFilters();
 document.addEventListener("DOMContentLoaded", function() {
     const isUserConnected = checkUserConnection();
 
-    // gérer l'affichage du bandeau de connexion
+    // gérer l'affichage de la bannière de connexion
     manageConnectionBanner(isUserConnected);
     adjustLoginLogoutText(isUserConnected);
     setupLogoutHandler();
@@ -97,7 +98,7 @@ function checkUserConnection() {
     return localStorage.getItem('token') !== null; // présence d'un token
 }
 
-// gérer le bandeau de connexion
+// gérer la bannière de connexion
 function manageConnectionBanner(isConnected) {
     const header = document.querySelector("header");
     let bandeau = document.getElementById("bandeau-connexion");
@@ -145,6 +146,7 @@ function manageConnectionBanner(isConnected) {
         }
     }
 }
+
 // afficher/fermer la modale
 function toggleModal(event) {
     event.preventDefault();
@@ -172,6 +174,7 @@ function toggleModal(event) {
         addButton.addEventListener('click', addPhoto);
     }
 }
+
 // gérer les événements de la modale
 function setupModalEvents() {
     const modal = document.querySelector('.modale');
@@ -218,6 +221,7 @@ function attachBackButtonEvent(modal) {
         backButton.addEventListener('click', restoreGalleryView);
     }
 }
+
 // restaurer la vue galerie
 function restoreGalleryView() {
     let modal = document.querySelector('.modale');
@@ -251,6 +255,7 @@ function setupLogoutHandler() {
         }
     });
 }
+
 // charger travaux dans la modale
 async function loadWorksIntoModal() {
     try {
@@ -283,6 +288,7 @@ async function loadWorksIntoModal() {
         console.error("Erreur lors du chargement des photos :", error);
     }
 }
+
 // supprimer travaux de la modale et galerie principale
 function deleteWork(workId) {
     const token = localStorage.getItem('token'); // token pour auth
@@ -315,6 +321,7 @@ function deleteWork(workId) {
         alert('Problème de connexion ou erreur serveur lors de la tentative de suppression.');
     });
 }
+
 // ajouter nouveau projet via formulaire de la modale
 function addPhoto() {
     let modal = document.querySelector('.modale');
@@ -398,6 +405,7 @@ function validateForm(form) {
     }
     return true;
 }
+
 // envoyer image au back-end
 function uploadImage(formData) {
     const token = localStorage.getItem('token'); // token pour auth
@@ -423,6 +431,7 @@ function uploadImage(formData) {
         console.error('Error:', error);
     });
 }
+
 // rafraîchir galerie
 function refreshGallery() {
     const gallery = document.querySelector('.gallery');
@@ -445,7 +454,8 @@ function refreshGallery() {
     })
     .catch(error => console.log('Erreur lors du chargement des photos:', error));
 }
-// validation live du formulaire addPhoto
+
+// validation en temps réel
 function setupRealTimeValidation() {
     const form = document.querySelector('.modale-addPhoto form');
     const inputs = form.querySelectorAll('input, select');
@@ -461,6 +471,7 @@ function setupRealTimeValidation() {
         });
     });
 }
+
 // aperçu de l'image
 function setupImagePreview() {
     const fileInput = document.querySelector('.modale-addPhoto input[type="file"]');
