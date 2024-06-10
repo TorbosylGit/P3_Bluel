@@ -461,3 +461,22 @@ function setupRealTimeValidation() {
         });
     });
 }
+// prévisualisation de l'image
+function setupImagePreview() {
+    const fileInput = document.querySelector('.modale-addPhoto input[type="file"]');
+    const containerFile = document.querySelector('.modale-addPhoto .containerFile');
+
+    fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                containerFile.innerHTML = `<img src="${e.target.result}" alt="Aperçu photo">`;
+                containerFile.appendChild(fileInput); // ajouter input de nouveau
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Veuillez sélectionner une image de type JPG ou PNG.');
+        }
+    });
+}
