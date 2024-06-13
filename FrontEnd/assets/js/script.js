@@ -1,17 +1,18 @@
 /* script révisé pour la soutenance */
 /* 2024.1306.1052 */
-// Récupérer/remplir liste des photos selon la catégorie
+
+// récupérer photos selon catégorie
 async function getWorks(categoryId = '0') {
     try {
         const response = await fetch("http://localhost:5678/api/works");
         const data = await response.json();
         const gallery = document.querySelector(".gallery");
-        gallery.innerHTML = ""; // Vider container
+        gallery.innerHTML = ""; // vider container
 
-        // Filtrer les données selon la catégorie
+        // filtrer selon catégorie
         const filterData = data.filter(work => categoryId === '0' || work.categoryId.toString() === categoryId);
 
-        // Créer et ajouter éléments pour chaque photo
+        // ajouter photos
         filterData.forEach(work => {
             const figure = document.createElement("figure");
             figure.dataset.id = work.id;
@@ -28,20 +29,20 @@ async function getWorks(categoryId = '0') {
             gallery.appendChild(figure);
         });
     } catch (error) {
-        console.error("Erreur lors de la récupération des photos :", error);
+        console.error("Erreur récupération photos :", error);
     }
 }
 
-// Récupérer/remplir liste déroulante des catégories
+// récupérer catégories
 async function getFilters() {
     try {
         const response = await fetch("http://localhost:5678/api/categories");
         const data = await response.json();
         const container = document.getElementById("category-buttons");
 
-        container.innerHTML = ''; // Vider le container
+        container.innerHTML = ''; // vider container
 
-        // Bouton "Tous"
+        // bouton "Tous"
         const allButton = document.createElement("button");
         allButton.className = 'button-style active';
         allButton.innerText = "Tous";
@@ -51,7 +52,7 @@ async function getFilters() {
         });
         container.appendChild(allButton);
 
-        // Bouton pour chaque catégorie
+        // boutons catégories
         data.forEach((item) => {
             const button = document.createElement("button");
             button.className = 'button-style';
@@ -63,32 +64,27 @@ async function getFilters() {
             container.appendChild(button);
         });
     } catch (error) {
-        console.error("Erreur lors de la récupération des catégories :", error);
+        console.error("Erreur récupération catégories :", error);
     }
 }
 
-// Mettre à jour le bouton actif
+// mettre à jour bouton actif
 function updateActiveButton(activeButton) {
     document.querySelectorAll('.button-style').forEach(button => {
-        button.classList.remove('active'); // Retirer classe 'active'
+        button.classList.remove('active'); // retirer 'active'
     });
-    activeButton.classList.add('active'); // Ajouter classe 'active'
+    activeButton.classList.add('active'); // ajouter 'active'
 }
 
-// Appeler les fonctions initiales pour charger les travaux et les catégories
-document.addEventListener("DOMContentLoaded", () => {
-    getWorks();
-    getFilters();
-});
 // vérifier connexion utilisateur
 function checkUserConnection() {
-    console.log('vérifier connexion utilisateur');
+    console.log('vérifier connexion');
     return localStorage.getItem('token') !== null; // présence token
 }
 
 // gérer bannière connexion
 function manageConnectionBanner(isConnected) {
-    console.log('gérer bannière connexion', isConnected);
+    console.log('gérer bannière', isConnected);
     const header = document.querySelector("header");
     let bandeau = document.getElementById("bandeau-connexion");
 
@@ -130,86 +126,27 @@ function manageConnectionBanner(isConnected) {
             titleContainer.remove();
         }
     }
+    updateLoginLogoutLink(isConnected);
 }
 
-// charger catégories
-async function getFilters() {
-    console.log('charger catégories');
-    try {
-        const response = await fetch("http://localhost:5678/api/categories");
-        const data = await response.json();
-        const container = document.getElementById("category-buttons");
-
-        container.innerHTML = ''; // vider container
-
-        // bouton "tous"
-        const allButton = document.createElement("button");
-        allButton.className = 'button-style active';
-        allButton.innerText = "Tous";
-        allButton.addEventListener("click", () => {
-            console.log('bouton tous cliqué');
-            getWorks('0');
-            updateActiveButton(allButton);
-        });
-        container.appendChild(allButton);
-
-        // boutons catégories
-        data.forEach((item) => {
-            const button = document.createElement("button");
-            button.className = 'button-style';
-            button.innerText = item.name;
-            button.addEventListener("click", () => {
-                console.log('bouton catégorie cliqué', item.name);
-                getWorks(item.id.toString());
-                updateActiveButton(button);
-            });
-            container.appendChild(button);
-        });
-    } catch (error) {
-        console.error("erreur chargement catégories :", error);
+// mettre à jour lien login/logout
+function updateLoginLogoutLink(isConnected) {
+    const loginLogoutLink = document.querySelector("#loginItem a");
+    if (isConnected) {
+        loginLogoutLink.innerText = "Logout";
+        loginLogoutLink.addEventListener("click", logout);
+    } else {
+        loginLogoutLink.innerText = "Login";
+        loginLogoutLink.href = "login.html";
     }
 }
 
-// mettre à jour bouton actif
-function updateActiveButton(activeButton) {
-    console.log('mise à jour bouton actif');
-    document.querySelectorAll('.button-style').forEach(button => {
-        button.classList.remove('active'); // retirer classe 'active'
-    });
-    activeButton.classList.add('active'); // ajouter classe 'active'
-}
-
-// charger travaux
-async function getWorks(categoryId = '0') {
-    console.log('charger travaux', categoryId);
-    try {
-        const response = await fetch("http://localhost:5678/api/works");
-        const data = await response.json();
-        const gallery = document.querySelector(".gallery");
-        gallery.innerHTML = ""; // vider container
-
-        // filtrer par catégorie
-        const filterData = data.filter(work => categoryId === '0' || work.categoryId.toString() === categoryId);
-
-        // ajouter éléments
-        filterData.forEach(work => {
-            const figure = document.createElement("figure");
-            figure.dataset.id = work.id;
-
-            const img = document.createElement("img");
-            img.src = work.imageUrl;
-            img.alt = work.title;
-
-            const figcaption = document.createElement("figcaption");
-            figcaption.innerText = work.title;
-
-            figure.appendChild(img);
-            figure.appendChild(figcaption);
-            gallery.appendChild(figure);
-        });
-    } catch (error) {
-        console.error("erreur chargement travaux :", error);
-    }
+// déconnexion utilisateur
+function logout(event) {
+    event.preventDefault();
+    console.log('déconnexion');
+    localStorage.removeItem('token'); // retirer token
+    window.location.href = "index.html"; // rediriger
 }
 
 // afficher/fermer modale
@@ -287,7 +224,7 @@ function attachBackButtonEvent(modal) {
 
 // restaurer vue galerie
 function restoreGalleryView() {
-    console.log('restaurer vue galerie');
+    console.log('restaurer galerie');
     let modal = document.querySelector('.modale');
     modal.innerHTML = `
         <div class="modale-galerie">
@@ -331,7 +268,7 @@ async function loadWorksIntoModal() {
             modalProjectsContainer.appendChild(workItem);
         });
     } catch (error) {
-        console.error("erreur chargement travaux :", error);
+        console.error("Erreur chargement travaux :", error);
     }
 }
 
@@ -355,13 +292,13 @@ function deleteWork(workId) {
             if (workItemGallery) workItemGallery.remove(); // retirer galerie
         } else {
             response.json().then(data => {
-                alert(`erreur : ${data.message || "impossible de supprimer cette photo."}`);
+                alert(`Erreur : ${data.message || "Impossible de supprimer cette photo."}`);
             });
         }
     })
     .catch(error => {
-        console.error('erreur suppression :', error);
-        alert('erreur connexion ou serveur lors de la suppression.');
+        console.error('Erreur suppression :', error);
+        alert('Erreur connexion ou serveur lors de la suppression.');
     });
 }
 
@@ -415,7 +352,7 @@ function loadCategoriesIntoSelect() {
             }
         })
         .catch(error => {
-            console.error('erreur chargement catégories :', error);
+            console.error('Erreur chargement catégories :', error);
         });
 }
 
@@ -480,8 +417,8 @@ function uploadImage(formData) {
         restoreGalleryView(); // restaurer vue galerie après ajout
     })
     .catch((error) => {
-        console.error('erreur ajout photo :', error);
-        alert('erreur lors de l\'ajout de la photo : ' + error.message);
+        console.error('Erreur ajout photo :', error);
+        alert('Erreur lors de l\'ajout de la photo : ' + error.message);
     });
 }
 
@@ -574,7 +511,7 @@ function setupImagePreview() {
 
 // initialisation
 document.addEventListener("DOMContentLoaded", () => {
-    console.log('document chargé');
+    console.log('DOM chargé');
     const isUserConnected = checkUserConnection();
 
     // gérer bannière connexion
