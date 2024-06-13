@@ -1,6 +1,5 @@
 /* script révisé pour la soutenance */
-/* 2024.1306.1040 */
-
+/* 2024.1306.1052 */
 // Récupérer/remplir liste des photos selon la catégorie
 async function getWorks(categoryId = '0') {
     try {
@@ -476,9 +475,8 @@ function uploadImage(formData) {
     })
     .then(data => {
         console.log('succès ajout image', data);
-        const newWorkElement = addWorkToGallery(data);
+        addWorkToGallery(data);
         addWorkToModal(data);
-        newWorkElement.scrollIntoView({ behavior: 'smooth', block: 'end' }); // faire défiler jusqu'à la nouvelle photo
         restoreGalleryView(); // restaurer vue galerie après ajout
     })
     .catch((error) => {
@@ -576,7 +574,7 @@ function setupImagePreview() {
 
 // initialisation
 document.addEventListener("DOMContentLoaded", () => {
-    console.log('DOM chargé');
+    console.log('document chargé');
     const isUserConnected = checkUserConnection();
 
     // gérer bannière connexion
